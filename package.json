@@ -1,0 +1,37 @@
+{
+  "name": "cardano-browser-utilities",
+  "title": "Cardano Browser Utilities",
+  "version": "0.1.0",
+  "description": "Cardano Browser Utilities",
+  "keywords": [
+    "cardano",
+    "browser",
+    "utilities"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Gene Alyson Fortunado Torcende",
+    "email": "genealyson.torcende@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kermage/cardano-browser-utilities.git"
+  },
+  "type": "module",
+  "files": [
+    "dist/"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^17.0.31",
+    "prettier": "^2.6.2",
+    "typescript": "^4.6.4",
+    "vite": "^2.9.8"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "prepublishOnly": "npm run build"
+  }
+}
