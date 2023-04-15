@@ -30,18 +30,19 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "@types/node": "^17.0.31",
-    "prettier": "^2.6.2",
-    "typescript": "^4.6.4",
-    "vite": "^2.9.8",
+    "@types/node": "^18.15.11",
+    "prettier": "^2.8.7",
+    "typescript": "^5.0.4",
+    "vite": "^4.2.1",
     "vite-plugin-dts": "^2.2.0"
   },
   "scripts": {
     "dev": "vite",
     "build:module": "tsc && vite build",
     "build:browser": "BROWSER=true vite build",
-    "build": "npm run build:module && npm run build:browser",
+    "build": "pnpm build:module && pnpm build:browser",
     "preview": "vite build -c vite.preview.ts && vite preview",
-    "prepublishOnly": "npm run build"
+    "test": "pnpm build && pnpm preview",
+    "prepublishOnly": "pnpm build"
   }
 }
