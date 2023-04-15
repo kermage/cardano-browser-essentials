@@ -18,20 +18,30 @@
     "url": "https://github.com/kermage/cardano-browser-utilities.git"
   },
   "type": "module",
+  "main": "dist/module.js",
+  "module": "dist/module.js",
+  "types": "dist/module.d.ts",
+  "browser": "dist/browser.js",
+  "unpkg": "dist/browser.js",
   "files": [
-    "dist/"
+    "dist/browser.js",
+    "dist/module.js",
+    "dist/module.d.ts"
   ],
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^17.0.31",
     "prettier": "^2.6.2",
     "typescript": "^4.6.4",
-    "vite": "^2.9.8"
+    "vite": "^2.9.8",
+    "vite-plugin-dts": "^2.2.0"
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "build:module": "tsc && vite build",
+    "build:browser": "BROWSER=true vite build",
+    "build": "npm run build:module && npm run build:browser",
+    "preview": "vite build -c vite.preview.ts && vite preview",
     "prepublishOnly": "npm run build"
   }
 }

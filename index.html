@@ -6,27 +6,25 @@
 		<title>Cardano Browser Utilities</title>
 		<link href="https://unpkg.com/modern-normalize" rel="stylesheet" />
 		<script type="module">
-			import Alpine from "https://unpkg.com/alpinejs?module";
-			import CBU, { getInstalledWallets } from "/src/index.ts";
+			import { getInstalledWallets } from "/src/index.ts";
 
-			document.addEventListener("alpine:init", () => {
-				Alpine.data("dAppConnector", () => ({
-					wallets: [],
-
-					init() {
-						this.wallets = getInstalledWallets();
-					},
-				}));
-			});
-			Alpine.start();
-			CBU();
+			window.CBU = { getInstalledWallets };
 		</script>
+		<!-- <script src="/browser.js"></script> -->
 	</head>
 
 	<body>
 		<h1>Cardano Browser Utilities</h1>
 
-		<main x-data="dAppConnector">
+		<main
+			x-data="{
+			wallets: [],
+
+			init() {
+				this.wallets = window.CBU.getInstalledWallets();
+			},
+		}"
+		>
 			<h2>Installed Wallets:</h2>
 
 			<ul>
@@ -38,5 +36,7 @@
 				</template>
 			</ul>
 		</main>
+
+		<script src="//unpkg.com/alpinejs" defer></script>
 	</body>
 </html>

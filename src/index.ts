@@ -1,8 +1,4 @@
-export default function () {
-	console.log("Cardano Browser Utilities");
-}
-
-function isCIP30(wallet: string): boolean {
+export function isCIP30(wallet: string): boolean {
 	return (
 		"function" === typeof window.cardano[wallet].enable &&
 		"function" === typeof window.cardano[wallet].isEnabled &&
@@ -12,7 +8,7 @@ function isCIP30(wallet: string): boolean {
 	);
 }
 
-function isAvailable(wallet: string = ""): boolean {
+export function isAvailable(wallet: string = ""): boolean {
 	if (
 		"undefined" === typeof window ||
 		"undefined" === typeof window.cardano ||
