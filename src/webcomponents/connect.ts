@@ -1,6 +1,6 @@
-import { identifier, namespacedEvent } from "./helpers";
-import { isAvailable } from "./index";
-import { InjectedAPI } from "./types";
+import { namespacedEvent } from "../helpers";
+import { isAvailable } from "../index";
+import { InjectedAPI } from "../types";
 
 export class Connect extends HTMLButtonElement {
 	async connectedCallback() {
@@ -42,7 +42,3 @@ export class Connect extends HTMLButtonElement {
 		this.connectedCallback();
 	}
 }
-
-customElements.define(`${identifier(true)}-connect`, Connect, {
-	extends: "button",
-});

@@ -1,5 +1,5 @@
-import "../connect";
 import { getInstalledWallets, isAvailable, isCIP30 } from "../index";
+import "./components";
 
 // @ts-ignore
 window.CBU = {

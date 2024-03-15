@@ -7,11 +7,18 @@
 		<link href="https://unpkg.com/modern-normalize" rel="stylesheet" />
 		<script type="module">
 			import { getInstalledWallets } from "/src/index.ts";
-			import "/src/connect.ts";
+			import "/src/webcomponents/index.ts";
 
 			window.CBU = { getInstalledWallets };
 		</script>
 		<!-- <script src="/browser.js"></script> -->
+
+		<!-- <script src="/components.js"></script>
+		<script>
+			window.CBU = {
+				getInstalledWallets: () => ["nami", "eternl"],
+			};
+		</script> -->
 	</head>
 
 	<body>

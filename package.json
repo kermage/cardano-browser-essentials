@@ -25,6 +25,7 @@
   "unpkg": "dist/browser.js",
   "files": [
     "dist/browser.js",
+    "dist/components.js",
     "dist/module.js",
     "dist/module.d.ts"
   ],
@@ -40,7 +41,8 @@
     "dev": "vite",
     "build:module": "tsc && vite build",
     "build:browser": "BROWSER=true vite build",
-    "build": "pnpm build:module && pnpm build:browser",
+    "build:components": "BROWSER=true COMPONENTS=true vite build",
+    "build": "pnpm build:module && pnpm build:browser && pnpm build:components",
     "preview": "vite build -c vite.preview.ts && vite preview",
     "test": "pnpm build && pnpm preview",
     "prepublishOnly": "pnpm build"
