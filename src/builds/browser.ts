@@ -1,3 +1,4 @@
+import "../connect";
 import { getInstalledWallets, isAvailable, isCIP30 } from "../index";
 
 // @ts-ignore

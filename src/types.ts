@@ -1,4 +1,4 @@
-interface InjectedAPI {
+export interface InjectedAPI {
 	enable: () => Promise<true>;
 	isEnabled: () => Promise<boolean>;
 	apiVersion: string;

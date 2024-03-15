@@ -7,6 +7,7 @@
 		<link href="https://unpkg.com/modern-normalize" rel="stylesheet" />
 		<script type="module">
 			import { getInstalledWallets } from "/src/index.ts";
+			import "/src/connect.ts";
 
 			window.CBU = { getInstalledWallets };
 		</script>
@@ -29,7 +30,13 @@
 
 			<ul>
 				<template x-for="wallet in wallets">
-					<li x-text="wallet"></li>
+					<li>
+						<button
+							is="cwc-connect"
+							x-bind:wallet="wallet"
+							x-text="wallet"
+						></button>
+					</li>
 				</template>
 				<template x-if="!wallets.length">
 					<li>NOTHING!!!</li>
@@ -37,6 +44,13 @@
 			</ul>
 		</main>
 
+		<script>
+			["connecting", "connected", "error"].forEach((type) => {
+				addEventListener(`CardanoWebComponents:${type}`, (event) => {
+					console.info("[CBU]", event.type, event.detail);
+				});
+			});
+		</script>
 		<script src="//unpkg.com/alpinejs" defer></script>
 	</body>
 </html>
