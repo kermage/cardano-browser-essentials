@@ -1,3 +1,8 @@
-import { getInstalledWallets, isAvailable, isCIP30 } from "../index";
+import {
+	getInstalledWallets,
+	getWalletInfo,
+	isAvailable,
+	isCIP30,
+} from "../index";
 
-export { getInstalledWallets, isAvailable, isCIP30 };
+export { getInstalledWallets, getWalletInfo, isAvailable, isCIP30 };

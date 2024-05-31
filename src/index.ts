@@ -1,3 +1,5 @@
+import { WalletInfo } from "./types";
+
 export function isCIP30(wallet: string): boolean {
 	return (
 		"function" === typeof window.cardano[wallet].enable &&
@@ -20,10 +22,26 @@ export function isAvailable(wallet: string = ""): boolean {
 	return wallet ? isCIP30(wallet) : true;
 }
 
-export function getInstalledWallets(): string[] {
+export function getInstalledWallets(): WalletInfo[] {
 	if (!isAvailable()) {
 		return [];
 	}
 
-	return Object.keys(window.cardano).filter(isCIP30);
+	return Object.keys(window.cardano).filter(isCIP30).map(getWalletInfo);
+}
+
+export function getWalletInfo(name: string): WalletInfo {
+	if (!isAvailable(name)) {
+		return {
+			id: "",
+			name: "",
+			icon: "",
+		};
+	}
+
+	return {
+		id: name,
+		name: window.cardano[name].name,
+		icon: window.cardano[name].icon,
+	};
 }

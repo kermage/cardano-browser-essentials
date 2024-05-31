@@ -12,13 +12,6 @@
 			window.CBU = { getInstalledWallets };
 		</script>
 		<!-- <script src="/browser.js"></script> -->
-
-		<!-- <script src="/components.js"></script>
-		<script>
-			window.CBU = {
-				getInstalledWallets: () => ["nami", "eternl"],
-			};
-		</script> -->
 	</head>
 
 	<body>
@@ -26,23 +19,22 @@
 
 		<main
 			x-data="{
-			wallets: [],
+				wallets: [],
 
-			init() {
-				this.wallets = window.CBU.getInstalledWallets();
-			},
-		}"
+				init() {
+					this.wallets = window.CBU.getInstalledWallets();
+				},
+			}"
 		>
 			<h2>Installed Wallets:</h2>
 
 			<ul>
 				<template x-for="wallet in wallets">
 					<li>
-						<button
-							is="cwc-connect"
-							x-bind:wallet="wallet"
-							x-text="wallet"
-						></button>
+						<button is="cwc-connect" x-bind:wallet="wallet.id">
+							<span x-text="wallet.name"></span>
+							<img x-bind:src="wallet.icon" alt="" height="12" />
+						</button>
 					</li>
 				</template>
 				<template x-if="!wallets.length">

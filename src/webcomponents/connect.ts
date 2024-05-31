@@ -1,6 +1,6 @@
 import { namespacedEvent } from "../helpers";
-import { isAvailable } from "../index";
-import { InjectedAPI } from "../types";
+import { getWalletInfo, isAvailable } from "../index";
+import { FullAPI } from "../types";
 
 export class Connect extends HTMLButtonElement {
 	async connectedCallback() {
@@ -17,12 +17,19 @@ export class Connect extends HTMLButtonElement {
 		this.addEventListener("click", async () => {
 			this.disabled = true;
 
-			this.dispatchEvent(namespacedEvent("connecting", { wallet }));
+			this.dispatchEvent(
+				namespacedEvent("connecting", {
+					button: this,
+					wallet: getWalletInfo(wallet),
+				})
+			);
 
 			window.cardano[wallet]
 				.enable()
-				.then((api: InjectedAPI) => {
-					this.dispatchEvent(namespacedEvent("connected", api));
+				.then((api: FullAPI) => {
+					this.dispatchEvent(
+						namespacedEvent("connected", { wallet: getWalletInfo(wallet), api })
+					);
 				})
 				.catch((error: any) => {
 					this.dispatchEvent(namespacedEvent("error", error));
