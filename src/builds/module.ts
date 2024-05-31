@@ -1,8 +1,4 @@
-import {
-	getInstalledWallets,
-	getWalletInfo,
-	isAvailable,
-	isCIP30,
-} from "../index";
+import * as CBU from "../index";
 
-export { getInstalledWallets, getWalletInfo, isAvailable, isCIP30 };
+export default CBU;
+export * from "../index";
