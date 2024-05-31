@@ -19,28 +19,65 @@
 
 		<main
 			x-data="{
-				wallets: [],
+				wallets: {
+					installed: [],
+					enabled: [],
+				},
 
-				init() {
-					this.wallets = window.CBU.getInstalledWallets();
+				async init() {
+					this.wallets.installed = window.CBU.getInstalledWallets();
+					this.wallets.enabled = await window.CBU.getEnabledWallets();
 				},
 			}"
 		>
 			<h2>Installed Wallets:</h2>
 
 			<ul>
-				<template x-for="wallet in wallets">
+				<template x-for="wallet in wallets.installed">
 					<li>
 						<button is="cwc-connect" x-bind:wallet="wallet.id">
-							<span x-text="wallet.name"></span>
 							<img x-bind:src="wallet.icon" alt="" height="12" />
+							<span x-text="wallet.name"></span>
 						</button>
 					</li>
 				</template>
-				<template x-if="!wallets.length">
+				<template x-if="!wallets.installed.length">
 					<li>NOTHING!!!</li>
 				</template>
 			</ul>
+
+			<h2>Enabled Wallets:</h2>
+
+			<table>
+				<thead>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Icon</th>
+				</thead>
+				<tbody>
+					<template x-for="wallet in wallets.enabled">
+						<tr>
+							<td>
+								<code x-text="wallet.id"></code>
+							</td>
+							<td>
+								<span x-text="wallet.name"></span>
+							</td>
+							<td>
+								<img x-bind:src="wallet.icon" alt="" height="16" />
+							</td>
+						</tr>
+					</template>
+				</tbody>
+			</table>
+			<style>
+				th,
+				td {
+					padding: 0.5rem;
+					border: 1px solid;
+					text-align: center;
+				}
+			</style>
 		</main>
 
 		<aside>

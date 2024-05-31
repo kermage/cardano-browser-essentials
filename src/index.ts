@@ -30,6 +30,16 @@ export function getInstalledWallets(): WalletInfo[] {
 	return Object.keys(window.cardano).filter(isCIP30).map(getWalletInfo);
 }
 
+export function getEnabledWallets(): Promise<WalletInfo[]> {
+	return getInstalledWallets().reduce(async (acc, wallet) => {
+		if (await window.cardano[wallet.id].isEnabled()) {
+			(await acc).push(wallet);
+		}
+
+		return acc;
+	}, Promise.resolve([] as WalletInfo[]));
+}
+
 export function getWalletInfo(name: string): WalletInfo {
 	if (!isAvailable(name)) {
 		return {
