@@ -1,10 +1,10 @@
 /// <reference types="vite/client" />
 
-import { InjectedAPI } from "types";
+import { InitialAPI } from "types/index";
 
 declare global {
 	interface Window {
-		cardano: Record<string, InjectedAPI>;
+		cardano: Record<string, InitialAPI>;
 	}
 }
 
