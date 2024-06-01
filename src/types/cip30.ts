@@ -42,3 +42,9 @@ export interface InitialAPI {
 	name: string;
 	icon: string;
 }
+
+type namespace = string;
+
+export interface InjectedCardano {
+	cardano: Record<namespace, InitialAPI>;
+}

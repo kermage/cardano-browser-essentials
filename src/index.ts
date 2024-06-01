@@ -1,4 +1,4 @@
-import { WalletInfo } from "./types/index";
+import type { WalletInfo } from "./types/index";
 
 export function isCIP30(wallet: string): boolean {
 	return (

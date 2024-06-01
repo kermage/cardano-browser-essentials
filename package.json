@@ -29,6 +29,15 @@
     "dist/module.js",
     "dist/module.d.ts"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/module.d.ts",
+      "default": "./dist/module.js"
+    },
+    "./components": {
+      "default": "./dist/components.js"
+    }
+  },
   "devDependencies": {
     "@types/node": "^18.19.33",
     "prettier": "^2.8.8",

@@ -1,6 +1,7 @@
 import { namespacedEvent } from "../helpers";
 import { getWalletInfo, isAvailable } from "../index";
-import { FullAPI } from "../types/index";
+
+import type { FullAPI } from "../types/index";
 
 export class Connect extends HTMLButtonElement {
 	#initialized: boolean = false;
