@@ -3,6 +3,7 @@ import { getWalletInfo, isAvailable } from "../index";
 import { FullAPI } from "../types/index";
 
 export class Connect extends HTMLButtonElement {
+	#initialized: boolean = false;
 	#wallet: string = "";
 
 	#eventCallback(name: string) {
@@ -14,18 +15,40 @@ export class Connect extends HTMLButtonElement {
 		);
 	}
 
-	async connectedCallback() {
-		this.#wallet = this.getAttribute("wallet") ?? "";
-		this.disabled = this.#wallet ? !isAvailable(this.#wallet) : true;
+	connectedCallback() {
+		this.#eventCallback("added");
+	}
 
-		if (!this.#wallet) {
+	disconnectedCallback() {
+		this.#eventCallback("removed");
+	}
+	adoptedCallback() {
+		this.#eventCallback("adopted");
+	}
+
+	static get observedAttributes() {
+		return ["wallet"];
+	}
+	attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+		if ("wallet" !== name) {
 			return;
 		}
 
-		this.#eventCallback("added");
+		this.#wallet = this.getAttribute("wallet") ?? "";
+		this.disabled = this.#wallet ? !isAvailable(this.#wallet) : true;
+
+		if (this.#initialized) {
+			return;
+		}
+
+		this.#initialized = true;
 		this.addEventListener("click", async () => {
 			const wallet = this.#wallet;
 			this.disabled = true;
+
+			if ("" === wallet || !isAvailable(wallet)) {
+				return;
+			}
 
 			this.#eventCallback("connecting");
 			window.cardano[wallet]
@@ -44,23 +67,5 @@ export class Connect extends HTMLButtonElement {
 					this.disabled = false;
 				});
 		});
-	}
-
-	disconnectedCallback() {
-		this.#eventCallback("removed");
-	}
-	adoptedCallback() {
-		this.#eventCallback("adopted");
-	}
-
-	static get observedAttributes() {
-		return ["wallet"];
-	}
-	attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-		if ("wallet" !== name || oldValue) {
-			return;
-		}
-
-		this.connectedCallback();
 	}
 }

@@ -41,7 +41,7 @@ export function getEnabledWallets(): Promise<WalletInfo[]> {
 }
 
 export function getWalletInfo(name: string): WalletInfo {
-	if (!isAvailable(name)) {
+	if ("" === name || !isAvailable(name)) {
 		return {
 			id: "",
 			name: "",
