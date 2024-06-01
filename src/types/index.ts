@@ -5,3 +5,14 @@ export interface WalletInfo {
 	name: string;
 	icon: string;
 }
+
+export interface CustomElement {
+	name: string;
+	constructor: CustomElementConstructor;
+	extends?: string;
+}
+
+export interface WebComponents {
+	prefix: string;
+	elements: CustomElement[];
+}

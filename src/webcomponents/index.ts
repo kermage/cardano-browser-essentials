@@ -1,6 +1,15 @@
 import { identifier } from "../helpers";
 import { Connect } from "./connect";
 
-customElements.define(`${identifier(true)}-connect`, Connect, {
-	extends: "button",
-});
+import type { WebComponents } from "../types/index";
+
+export default <WebComponents>{
+	prefix: identifier(true),
+	elements: [
+		{
+			name: "connect",
+			constructor: Connect,
+			extends: "button",
+		},
+	],
+};
