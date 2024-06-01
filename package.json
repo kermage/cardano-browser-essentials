@@ -1,12 +1,12 @@
 {
-  "name": "cardano-browser-utilities",
-  "title": "Cardano Browser Utilities",
+  "name": "cardano-browser-essentials",
+  "title": "Cardano Browser Essentials",
   "version": "0.1.0",
-  "description": "Cardano Browser Utilities",
+  "description": "Cardano Browser Essentials",
   "keywords": [
     "cardano",
     "browser",
-    "utilities"
+    "essentials"
   ],
   "license": "MIT",
   "author": {
@@ -15,16 +15,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kermage/cardano-browser-utilities.git"
+    "url": "https://github.com/kermage/cardano-browser-essentials.git"
   },
   "type": "module",
   "main": "dist/module.js",
   "module": "dist/module.js",
   "types": "dist/module.d.ts",
-  "browser": "dist/browser.js",
-  "unpkg": "dist/browser.js",
+  "browser": "dist/cdn.js",
+  "unpkg": "dist/cdn.js",
   "files": [
-    "dist/browser.js",
+    "dist/cdn.js",
     "dist/components.js",
     "dist/module.js",
     "dist/module.d.ts"
@@ -39,18 +39,18 @@
     }
   },
   "devDependencies": {
-    "@types/node": "^18.19.33",
-    "prettier": "^2.8.8",
+    "@types/node": "^20.13.0",
+    "prettier": "^3.2.5",
     "typescript": "^5.4.5",
-    "vite": "^4.5.3",
-    "vite-plugin-dts": "^2.3.0"
+    "vite": "^5.2.12",
+    "vite-plugin-dts": "^3.9.1"
   },
   "scripts": {
     "dev": "vite",
     "build:module": "tsc && vite build",
-    "build:browser": "BROWSER=true vite build",
-    "build:components": "BROWSER=true COMPONENTS=true vite build",
-    "build": "pnpm build:module && pnpm build:browser && pnpm build:components",
+    "build:cdn": "CDN=true vite build",
+    "build:components": "CDN=true COMPONENTS=true vite build",
+    "build": "pnpm build:module && pnpm build:cdn && pnpm build:components",
     "preview": "vite build -c vite.preview.ts && vite preview",
     "test": "pnpm build && pnpm preview",
     "prepublishOnly": "pnpm build"

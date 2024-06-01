@@ -1,22 +1,22 @@
 import { defineConfig, type LibraryOptions } from "vite";
 import dts from "vite-plugin-dts";
 
-const forBrowser = process.env.BROWSER ? true : false;
-const emptyOutDir = !forBrowser;
-const minify = forBrowser;
+const forCDN = process.env.CDN ? true : false;
+const emptyOutDir = !forCDN;
+const minify = forCDN;
 const lib: LibraryOptions = {
 	entry: [
-		forBrowser
+		forCDN
 			? process.env.COMPONENTS
 				? "src/builds/components.ts"
-				: "src/builds/browser.ts"
+				: "src/builds/cdn.ts"
 			: "src/builds/module.ts",
 	],
-	formats: [forBrowser ? "umd" : "es"],
-	name: "CBU",
+	formats: [forCDN ? "umd" : "es"],
+	name: "CBE",
 	fileName: (_, name) => `${name}.js`,
 };
-const plugins = forBrowser ? [] : [dts({ rollupTypes: true })];
+const plugins = forCDN ? [] : [dts({ rollupTypes: true })];
 
 // https://vitejs.dev/config/
 export default defineConfig({
