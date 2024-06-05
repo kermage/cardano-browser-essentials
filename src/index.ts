@@ -1,4 +1,6 @@
-import type { WalletInfo } from "./types/index";
+import { SLOT_OFFSET } from "./types/index";
+
+import type { NetworkName, WalletInfo } from "./types/index";
 
 export function isCIP30(wallet: string): boolean {
 	return (
@@ -54,4 +56,8 @@ export function getWalletInfo(name: string): WalletInfo {
 		name: window.cardano[name].name,
 		icon: window.cardano[name].icon,
 	};
+}
+
+export function toSlotNumber(timestamp: number, network: NetworkName) {
+	return Math.floor((timestamp - SLOT_OFFSET[network]) / 1000);
 }

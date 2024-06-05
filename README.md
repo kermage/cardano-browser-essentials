@@ -20,6 +20,7 @@
 	window.CBE.getInstalledWallets();
 	window.CBE.getEnabledWallets();
 	window.CBE.getWalletInfo(name);
+	window.CBE.toSlotNumber(timestamp, network);
 </script>
 ```
 
@@ -45,6 +46,7 @@ import {
 	getInstalledWallets,
 	getEnabledWallets,
 	getWalletInfo,
+	toSlotNumber,
 } from "cardano-browser-essentials";
 
 import "cardano-browser-essentials/components";
