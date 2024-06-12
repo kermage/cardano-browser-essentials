@@ -33,13 +33,16 @@ export function getInstalledWallets(): WalletInfo[] {
 }
 
 export function getEnabledWallets(): Promise<WalletInfo[]> {
-	return getInstalledWallets().reduce(async (acc, wallet) => {
-		if (await window.cardano[wallet.id].isEnabled()) {
-			(await acc).push(wallet);
-		}
+	return getInstalledWallets().reduce(
+		async (acc, wallet) => {
+			if (await window.cardano[wallet.id].isEnabled()) {
+				(await acc).push(wallet);
+			}
 
-		return acc;
-	}, Promise.resolve([] as WalletInfo[]));
+			return acc;
+		},
+		Promise.resolve([] as WalletInfo[]),
+	);
 }
 
 export function getWalletInfo(name: string): WalletInfo {

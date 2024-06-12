@@ -17,7 +17,7 @@ export interface FullAPI {
 	getNetworkId: () => Promise<number>;
 	getUtxos: (
 		amount?: cbor<"value">,
-		paginate?: Paginate
+		paginate?: Paginate,
 	) => Promise<cbor<"TransactionUnspentOutput">[] | null>;
 	getCollateral: (params?: {
 		amount: cbor<"Coin">;
@@ -29,7 +29,7 @@ export interface FullAPI {
 	getRewardAddresses: () => Promise<Address[]>;
 	signTx: (
 		tx: cbor<"transaction">,
-		partialSign?: boolean
+		partialSign?: boolean,
 	) => Promise<cbor<"transaction_witness_set">>;
 	signData: (addr: Address, payload: Bytes) => Promise<DataSignature>;
 	submitTx: (tx: cbor<"transaction">) => Promise<hash32>;

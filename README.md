@@ -15,12 +15,12 @@
 
 ```html
 <script>
-	window.CBE.isCIP30(wallet);
-	window.CBE.isAvailable(wallet);
-	window.CBE.getInstalledWallets();
-	window.CBE.getEnabledWallets();
-	window.CBE.getWalletInfo(name);
-	window.CBE.toSlotNumber(timestamp, network);
+  window.CBE.isCIP30(wallet);
+  window.CBE.isAvailable(wallet);
+  window.CBE.getInstalledWallets();
+  window.CBE.getEnabledWallets();
+  window.CBE.getWalletInfo(name);
+  window.CBE.toSlotNumber(timestamp, network);
 </script>
 ```
 
@@ -36,17 +36,17 @@
 import type { InjectedCardano } from "cardano-browser-essentials";
 
 declare global {
-	interface Window extends InjectedCardano {}
+  interface Window extends InjectedCardano {}
 }
 
 // index.ts
 import {
-	isCIP30,
-	isAvailable,
-	getInstalledWallets,
-	getEnabledWallets,
-	getWalletInfo,
-	toSlotNumber,
+  isCIP30,
+  isAvailable,
+  getInstalledWallets,
+  getEnabledWallets,
+  getWalletInfo,
+  toSlotNumber,
 } from "cardano-browser-essentials";
 
 import "cardano-browser-essentials/components";

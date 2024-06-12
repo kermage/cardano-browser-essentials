@@ -12,7 +12,7 @@ export class Connect extends HTMLButtonElement {
 			namespacedEvent(name, {
 				button: this,
 				wallet: getWalletInfo(this.#wallet),
-			})
+			}),
 		);
 	}
 
@@ -56,12 +56,15 @@ export class Connect extends HTMLButtonElement {
 				.enable()
 				.then((api: FullAPI) => {
 					this.dispatchEvent(
-						namespacedEvent("connected", { wallet: getWalletInfo(wallet), api })
+						namespacedEvent("connected", {
+							wallet: getWalletInfo(wallet),
+							api,
+						}),
 					);
 				})
 				.catch((error: any) => {
 					this.dispatchEvent(
-						namespacedEvent("error", { wallet: getWalletInfo(wallet), error })
+						namespacedEvent("error", { wallet: getWalletInfo(wallet), error }),
 					);
 				})
 				.finally(() => {
