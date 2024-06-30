@@ -8,6 +8,22 @@
 
 > Change `wallet` attribute value to any CIP30 compliant namespace
 
+### Events
+
+- CardanoWebComponents:added
+- CardanoWebComponents:removed
+- CardanoWebComponents:adopted
+- CardanoWebComponents:connecting
+- CardanoWebComponents:connected
+
+| Detail | Description         |
+| ------ | ------------------- |
+| button | the current element |
+| wallet | ID, name, and icon  |
+| api\*  | CIP30 Full API      |
+
+> \*_Available only in `connected`_
+
 ### CDN
 
 - [unpkg](https://unpkg.com/cardano-browser-essentials/dist/cdn.js)

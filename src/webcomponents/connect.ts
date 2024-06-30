@@ -7,11 +7,12 @@ export class Connect extends HTMLButtonElement {
 	#initialized: boolean = false;
 	#wallet: string = "";
 
-	#eventCallback(name: string) {
+	#eventCallback(name: string, detail?: any) {
 		this.dispatchEvent(
 			namespacedEvent(name, {
 				button: this,
 				wallet: getWalletInfo(this.#wallet),
+				...detail,
 			}),
 		);
 	}
@@ -23,6 +24,7 @@ export class Connect extends HTMLButtonElement {
 	disconnectedCallback() {
 		this.#eventCallback("removed");
 	}
+
 	adoptedCallback() {
 		this.#eventCallback("adopted");
 	}
@@ -30,6 +32,7 @@ export class Connect extends HTMLButtonElement {
 	static get observedAttributes() {
 		return ["wallet"];
 	}
+
 	attributeChangedCallback(name: string, oldValue: string, newValue: string) {
 		if ("wallet" !== name) {
 			return;
@@ -55,12 +58,7 @@ export class Connect extends HTMLButtonElement {
 			window.cardano[wallet]
 				.enable()
 				.then((api: FullAPI) => {
-					this.dispatchEvent(
-						namespacedEvent("connected", {
-							wallet: getWalletInfo(wallet),
-							api,
-						}),
-					);
+					this.#eventCallback("connected", { api });
 				})
 				.catch((error: any) => {
 					this.dispatchEvent(
