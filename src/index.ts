@@ -2,6 +2,8 @@ import { SLOT_OFFSET } from "./types/index";
 
 import type { NetworkName, WalletInfo } from "./types/index";
 
+export * from "./transaction";
+
 export function isCIP30(wallet: string): boolean {
 	return (
 		"function" === typeof window.cardano[wallet].enable &&

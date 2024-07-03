@@ -67,3 +67,19 @@ import {
 
 import "cardano-browser-essentials/components";
 ```
+
+### Transactions
+
+```ts
+import { createHandler } from "cardano-browser-essentials";
+
+const walletAPI = event.detail.api; // from connected
+const txHandler = createHandler(walletAPI, await CML.load());
+async function getLatestParameters(): Promise<ProtocolParameters> {}
+
+const txHash = txHandler
+  .configWith(await getLatestParameters())
+  .sendTo("bech32_address", "lovelace_amount")
+  .delegateTo("bech32_pool_ID")
+  .execute();
+```
