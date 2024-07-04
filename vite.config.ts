@@ -17,13 +17,19 @@ const lib: LibraryOptions = {
 	fileName: (_, name) => `${name}.js`,
 };
 const plugins = forCDN ? [] : [dts({ rollupTypes: true })];
+const config = process.env.STATIC
+	? {
+			base: process.env.BASE_URL || "/",
+			build: { emptyOutDir },
+		}
+	: {
+			build: {
+				lib,
+				emptyOutDir,
+				minify,
+			},
+			plugins,
+		};
 
 // https://vitejs.dev/config/
-export default defineConfig({
-	build: {
-		emptyOutDir,
-		lib,
-		minify,
-	},
-	plugins,
-});
+export default defineConfig(config);

@@ -55,8 +55,7 @@
     "build:cdn": "CDN=true vite build",
     "build:components": "CDN=true COMPONENTS=true vite build",
     "build": "pnpm build:module && pnpm build:cdn && pnpm build:components",
-    "preview": "vite build -c vite.preview.ts && vite preview",
-    "test": "pnpm build && pnpm preview",
+    "deploy": "STATIC=true vite build",
     "prepublishOnly": "pnpm build"
   }
 }
