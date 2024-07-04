@@ -1,3 +1,4 @@
+import { toSlotNumber } from ".";
 import {
 	type CMLModule,
 	type CMLType,
@@ -28,6 +29,26 @@ class Handler {
 		return this;
 	}
 
+	registerStake() {
+		this.#wallet.getRewardAddresses().then((address) => {
+			const parsedAddress = CML.RewardAddress.from_address(
+				CML.Address.from_hex(address[0]),
+			)!;
+
+			this.#txBuilder.add_cert(
+				CML.SingleCertificateBuilder.new(
+					CML.Certificate.new_stake_registration(
+						CML.Credential.new_pub_key(
+							CML.Ed25519KeyHash.from_hex(
+								parsedAddress.payment().as_pub_key()!.to_hex(),
+							),
+						),
+					),
+				).skip_witness(),
+			);
+		});
+	}
+
 	delegateTo(poolID: string) {
 		this.#wallet.getRewardAddresses().then((address) => {
 			const parsedAddress = CML.RewardAddress.from_address(
@@ -51,7 +72,7 @@ class Handler {
 		return this;
 	}
 
-	async execute() {
+	async execute(timeout?: number) {
 		(await this.#wallet.getUtxos())?.forEach((utxo) => {
 			this.#txBuilder.add_input(
 				CML.SingleInputBuilder.from_transaction_unspent_output(
@@ -64,6 +85,17 @@ class Handler {
 			await this.#wallet.getChangeAddress(),
 		);
 		this.#txBuilder.add_change_if_needed(changeAddress, true);
+
+		if (timeout) {
+			this.#txBuilder.set_ttl(
+				BigInt(
+					toSlotNumber(
+						Date.now() + timeout * 1000,
+						changeAddress.network_id() ? "mainnet" : "preprod",
+					),
+				),
+			);
+		}
 
 		const completeTx = this.#txBuilder
 			.build(CML.ChangeSelectionAlgo.Default, changeAddress)

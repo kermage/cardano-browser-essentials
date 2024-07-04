@@ -81,5 +81,6 @@ const txHash = txHandler
   .configWith(await getLatestParameters())
   .sendTo("bech32_address", "lovelace_amount")
   .delegateTo("bech32_pool_ID")
-  .execute();
+  .registerStake()
+  .execute(); // optional timeout in seconds
 ```
