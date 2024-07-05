@@ -2,7 +2,7 @@ import { defineConfig, type LibraryOptions } from "vite";
 import dts from "vite-plugin-dts";
 
 const forCDN = process.env.CDN ? true : false;
-const emptyOutDir = !forCDN;
+const emptyOutDir = !forCDN && !process.env.COMMON;
 const minify = forCDN;
 const lib: LibraryOptions = {
 	entry: [
@@ -12,9 +12,12 @@ const lib: LibraryOptions = {
 				: "src/builds/cdn.ts"
 			: "src/builds/module.ts",
 	],
-	formats: [forCDN ? "umd" : "es"],
+	formats: [forCDN ? "umd" : process.env.COMMON ? "cjs" : "es"],
 	name: "CBE",
-	fileName: (_, name) => `${name}.js`,
+	fileName: (_, name) => {
+		const prefix = process.env.COMMON ? "c" : forCDN ? "" : "m";
+		return `${name}.${prefix}js`;
+	},
 };
 const plugins = forCDN ? [] : [dts({ rollupTypes: true })];
 const config = process.env.STATIC

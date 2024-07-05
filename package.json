@@ -1,7 +1,7 @@
 {
   "name": "cardano-browser-essentials",
   "title": "Cardano Browser Essentials",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Cardano Browser Essentials",
   "keywords": [
     "cardano",
@@ -18,21 +18,24 @@
     "url": "https://github.com/kermage/cardano-browser-essentials.git"
   },
   "type": "module",
-  "main": "dist/module.js",
-  "module": "dist/module.js",
+  "main": "dist/module.cjs",
+  "module": "dist/module.mjs",
   "types": "dist/module.d.ts",
   "browser": "dist/cdn.js",
   "unpkg": "dist/cdn.js",
   "files": [
     "dist/cdn.js",
     "dist/components.js",
-    "dist/module.js",
+    "dist/module.cjs",
+    "dist/module.mjs",
     "dist/module.d.ts"
   ],
   "exports": {
     ".": {
       "types": "./dist/module.d.ts",
-      "default": "./dist/module.js"
+      "default": "./dist/module.mjs",
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
     },
     "./components": {
       "default": "./dist/components.js"
@@ -52,9 +55,10 @@
   "scripts": {
     "dev": "vite",
     "build:module": "tsc && vite build",
+    "build:common": "COMMON=true vite build",
     "build:cdn": "CDN=true vite build",
     "build:components": "CDN=true COMPONENTS=true vite build",
-    "build": "pnpm build:module && pnpm build:cdn && pnpm build:components",
+    "build": "pnpm build:module && pnpm build:common && pnpm build:cdn && pnpm build:components",
     "deploy": "STATIC=true vite build",
     "prepublishOnly": "pnpm build"
   }
