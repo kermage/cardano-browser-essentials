@@ -5,6 +5,42 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Cardano Browser Essentials</title>
 		<link href="https://unpkg.com/modern-normalize" rel="stylesheet" />
+		<style>
+			html {
+				container-type: inline-size;
+			}
+
+			@container (width > 768px) {
+				body {
+					display: grid;
+					grid-template-columns: 1fr 1fr;
+					height: 100vh;
+				}
+
+				aside {
+					overflow: auto;
+				}
+
+				h1 {
+					grid-column: 1 / span 2;
+				}
+
+				h3 {
+					position: sticky;
+					top: 0;
+					background: #fff;
+					display: block;
+					margin: 0;
+					padding: 1em 0;
+				}
+			}
+
+			#cbE-events {
+				display: flex;
+				flex-direction: column-reverse;
+				font-size: 0.75rem;
+			}
+		</style>
 		<script type="module">
 			import * as CBE from "/src/index.ts";
 			import "/src/builds/components.ts";
@@ -84,17 +120,6 @@
 			<h3>Events Fired:</h3>
 
 			<ol id="cbE-events"></ol>
-			<style>
-				#cbE-events {
-					display: flex;
-					flex-direction: column-reverse;
-					font-size: 0.75rem;
-				}
-
-				#cbE-events pre {
-					white-space: pre-wrap;
-				}
-			</style>
 		</aside>
 
 		<script>
