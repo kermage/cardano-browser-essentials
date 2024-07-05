@@ -41,11 +41,12 @@ export class Connect extends HTMLButtonElement {
 		this.#wallet = this.getAttribute("wallet") ?? "";
 		this.disabled = this.#wallet ? !isAvailable(this.#wallet) : true;
 
-		if (this.#initialized) {
+		if (!this.#wallet || this.#initialized) {
 			return;
 		}
 
 		this.#initialized = true;
+		this.#eventCallback("initialized");
 		this.addEventListener("click", async () => {
 			const wallet = this.#wallet;
 			this.disabled = true;

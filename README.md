@@ -13,6 +13,7 @@
 - CardanoWebComponents:added
 - CardanoWebComponents:removed
 - CardanoWebComponents:adopted
+- CardanoWebComponents:initialized
 - CardanoWebComponents:connecting
 - CardanoWebComponents:connected
 
