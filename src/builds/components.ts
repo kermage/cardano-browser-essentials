@@ -1,3 +1,4 @@
+import "@webreflection/custom-elements-builtin";
 import { CustomElement } from "../types/index";
 import webcomponents from "../webcomponents/index";
 

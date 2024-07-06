@@ -14,6 +14,9 @@ importers:
       '@types/node':
         specifier: ^20.14.9
         version: 20.14.9
+      '@webreflection/custom-elements-builtin':
+        specifier: ^0.4.1
+        version: 0.4.1
       prettier:
         specifier: ^3.3.2
         version: 3.3.2
@@ -349,6 +352,15 @@ packages:
   '@vue/shared@3.4.31':
     resolution: {integrity: sha512-Yp3wtJk//8cO4NItOPpi3QkLExAr/aLBGZMmTtW9WpdwBCJpRM6zj9WgWktXAl8IDIozwNMByT45JP3tO3ACWA==}
 
+  '@webreflection/custom-elements-attributes@0.1.4':
+    resolution: {integrity: sha512-uL8msxNYPabss14zx+pxMgr16x/RBKGeMzZQ95UZv5HRQPqs3hK1gNxMYwLvhuJ7aumvbqktfEf2g4waBl13iQ==}
+
+  '@webreflection/custom-elements-builtin@0.4.1':
+    resolution: {integrity: sha512-CueKyf4HVvVx/5C458ZvOuI32BbdloJs6iIinf9k/M4POCddL7pR5ciWxHYy7Jd+FVkoMbwoOr+104ATecV51w==}
+
+  '@webreflection/custom-elements-upgrade@0.1.4':
+    resolution: {integrity: sha512-gCRV9bImUc8oR+0N1YE+1etW5qaWpd4lUJeagBZfdZa6WIJ5fnihM1x6ngiKG/ND1kFNlqxE8fDkwJts7pwXBA==}
+
   ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
 
@@ -385,6 +397,9 @@ packages:
     peerDependenciesMeta:
       supports-color:
         optional: true
+
+  element-notifier@1.1.2:
+    resolution: {integrity: sha512-GaXwkw/aZ4ZCsmzTDrlchtFmu3k3mruOUcC04Lk7YCQLMWsBPUONaIzczvW3QxxVkTpu8oq3r+muVuD+01b7fA==}
 
   entities@4.5.0:
     resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
@@ -510,6 +525,9 @@ packages:
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
+
+  qsa-observer@3.0.2:
+    resolution: {integrity: sha512-G1qqXYKG9RNpoFROJFGzYew1g76YDJsL5jyjePB8CdU6H9SFWO47WGLlqkuJKr5NKwVAzFl2fmTwqyK/EywxOw==}
 
   resolve@1.19.0:
     resolution: {integrity: sha512-rArEXAgsBG4UgRGcynxWIWKFvh/XZCcS8UJdHhwy91zwAvCZIbcs+vAbflgBnNjYMs/i/i+/Ux6IZhML1yPvxg==}
@@ -905,6 +923,16 @@ snapshots:
 
   '@vue/shared@3.4.31': {}
 
+  '@webreflection/custom-elements-attributes@0.1.4': {}
+
+  '@webreflection/custom-elements-builtin@0.4.1':
+    dependencies:
+      '@webreflection/custom-elements-attributes': 0.1.4
+      '@webreflection/custom-elements-upgrade': 0.1.4
+      qsa-observer: 3.0.2
+
+  '@webreflection/custom-elements-upgrade@0.1.4': {}
+
   ajv@6.12.6:
     dependencies:
       fast-deep-equal: 3.1.3
@@ -939,6 +967,8 @@ snapshots:
   debug@4.3.5:
     dependencies:
       ms: 2.1.2
+
+  element-notifier@1.1.2: {}
 
   entities@4.5.0: {}
 
@@ -1056,6 +1086,10 @@ snapshots:
   prettier@3.3.2: {}
 
   punycode@2.3.1: {}
+
+  qsa-observer@3.0.2:
+    dependencies:
+      element-notifier: 1.1.2
 
   resolve@1.19.0:
     dependencies:
