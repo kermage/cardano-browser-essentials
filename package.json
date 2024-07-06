@@ -1,7 +1,7 @@
 {
   "name": "cardano-browser-essentials",
   "title": "Cardano Browser Essentials",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Cardano Browser Essentials",
   "keywords": [
     "cardano",
@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@dcspark/cardano-multiplatform-lib-browser": "^5.3.1",
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14.10",
     "@webreflection/custom-elements-builtin": "^0.4.1",
     "prettier": "^3.3.2",
     "typescript": "^5.5.3",

@@ -62,9 +62,7 @@ export class Connect extends HTMLButtonElement {
 					this.#eventCallback("connected", { api });
 				})
 				.catch((error: any) => {
-					this.dispatchEvent(
-						namespacedEvent("error", { wallet: getWalletInfo(wallet), error }),
-					);
+					this.#eventCallback("error", { error });
 				})
 				.finally(() => {
 					this.disabled = false;

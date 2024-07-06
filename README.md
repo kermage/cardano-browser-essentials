@@ -16,14 +16,18 @@
 - CardanoWebComponents:initialized
 - CardanoWebComponents:connecting
 - CardanoWebComponents:connected
+- CardanoWebComponents:error
 
-| Detail | Description         |
-| ------ | ------------------- |
-| button | the current element |
-| wallet | ID, name, and icon  |
-| api\*  | CIP30 Full API      |
+| Detail    | Description         |
+| --------- | ------------------- |
+| button    | the current element |
+| wallet    | ID, name, and icon  |
+| api\*     | CIP30 Full API      |
+| error\*\* | error object thrown |
 
 > \*_Available only in `connected`_
+>
+> \*\*_Available only in `error`_
 
 ### CDN
 
