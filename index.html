@@ -73,12 +73,26 @@
 					enabled: [],
 				},
 
+				forceRefresh(delayed = false) {
+					this.wallets = {
+						installed: [],
+						enabled: [],
+					};
+					document.querySelector('#cbE-events').replaceChildren();
+
+					setTimeout(async () => {
+						this.wallets.installed = window.CBE.getInstalledWallets();
+						this.wallets.enabled = await window.CBE.getEnabledWallets();
+					}, (+delayed) * 250);
+				},
+
 				async init() {
-					this.wallets.installed = window.CBE.getInstalledWallets();
-					this.wallets.enabled = await window.CBE.getEnabledWallets();
+					await this.forceRefresh();
 				},
 			}"
 		>
+			<button x-on:click="forceRefresh(true)">Refresh</button>
+
 			<h2>Installed Wallets:</h2>
 
 			<ul>
