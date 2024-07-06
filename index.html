@@ -14,6 +14,7 @@
 				body {
 					display: grid;
 					grid-template-columns: 1fr 1fr;
+					grid-template-rows: auto 1fr;
 					height: 100vh;
 				}
 
@@ -21,8 +22,11 @@
 					overflow: auto;
 				}
 
-				h1 {
+				header {
 					grid-column: 1 / span 2;
+					display: flex;
+					align-items: center;
+					gap: 1em;
 				}
 
 				h3 {
@@ -64,7 +68,9 @@
 	</head>
 
 	<body>
-		<h1>Cardano Browser Essentials</h1>
+		<header>
+			<h1>Cardano Browser Essentials</h1>
+		</header>
 
 		<main
 			x-data="{
@@ -91,7 +97,9 @@
 				},
 			}"
 		>
-			<button x-on:click="forceRefresh(true)">Refresh</button>
+			<template x-teleport="header">
+				<button x-on:click="forceRefresh(true)">Refresh</button>
+			</template>
 
 			<h2>Installed Wallets:</h2>
 
