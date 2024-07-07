@@ -1,6 +1,6 @@
 import { SLOT_OFFSET } from "./types/index";
 
-import type { NetworkName, WalletInfo } from "./types/index";
+import type { FullAPI, NetworkName, WalletInfo } from "./types/index";
 
 export * from "./transaction";
 
@@ -61,6 +61,27 @@ export function getWalletInfo(name: string): WalletInfo {
 		name: window.cardano[name].name,
 		icon: window.cardano[name].icon,
 	};
+}
+
+export function enableWallet(
+	name: string,
+): Promise<{ fullAPI: FullAPI; networkID: number }> {
+	return new Promise((resolve, reject) => {
+		if ("" === name || !isAvailable(name)) {
+			reject(new Error(`The wallet name "${name}" is not CIP30 compliant.`));
+		}
+
+		window.cardano[name]
+			.enable()
+			.then(async (fullAPI) => {
+				const networkID = await fullAPI.getNetworkId();
+
+				resolve({ fullAPI, networkID });
+			})
+			.catch((error: any) => {
+				reject(error);
+			});
+	});
 }
 
 export function toSlotNumber(timestamp: number, network: NetworkName) {

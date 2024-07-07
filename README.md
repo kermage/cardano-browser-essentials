@@ -41,6 +41,7 @@
   window.CBE.getInstalledWallets();
   window.CBE.getEnabledWallets();
   window.CBE.getWalletInfo(name);
+  window.CBE.enableWallet(name);
   window.CBE.toSlotNumber(timestamp, network);
 </script>
 ```
@@ -67,6 +68,7 @@ import {
   getInstalledWallets,
   getEnabledWallets,
   getWalletInfo,
+  enableWallet,
   toSlotNumber,
 } from "cardano-browser-essentials";
 
@@ -78,6 +80,7 @@ import "cardano-browser-essentials/components";
 ```ts
 import { createHandler } from "cardano-browser-essentials";
 
+// const { fullAPI: walletAPI } = await enableWallet(namespace)
 const walletAPI = event.detail.api; // from connected
 const txHandler = createHandler(walletAPI, await CML.load());
 async function getLatestParameters(): Promise<ProtocolParameters> {}
