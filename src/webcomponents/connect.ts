@@ -69,4 +69,11 @@ export class Connect extends HTMLButtonElement {
 				});
 		});
 	}
+
+	constructor() {
+		super();
+		window.addEventListener("load", () => {
+			this.setAttribute("wallet", this.#wallet);
+		});
+	}
 }
