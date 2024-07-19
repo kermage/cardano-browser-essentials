@@ -5,72 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Cardano Browser Essentials</title>
 		<link href="//cdn.jsdelivr.net/npm/modern-normalize" rel="stylesheet" />
-		<style>
-			html {
-				container-type: inline-size;
-			}
-
-			@container (width > 768px) {
-				body {
-					display: grid;
-					grid-template-columns: 1fr 1fr;
-					grid-template-rows: auto 1fr;
-					height: 100vh;
-				}
-
-				main,
-				aside {
-					overflow: auto;
-				}
-
-				header {
-					grid-column: 1 / span 2;
-					display: flex;
-					align-items: center;
-					gap: 1em;
-				}
-
-				h3 {
-					position: sticky;
-					top: 0;
-					background: #fff;
-					display: block;
-					margin: 0;
-					padding: 1em 0;
-				}
-			}
-
-			code {
-				display: block;
-				white-space: pre-wrap;
-			}
-
-			#cbE-events {
-				display: flex;
-				flex-direction: column-reverse;
-				font-size: 0.75rem;
-			}
-		</style>
-		<script type="module">
-			import * as CBE from "/src/index.ts";
-			import "/src/builds/components.ts";
-
-			window.CBE = CBE;
-		</script>
-		<script>
-			(function () {
-				var src = "//cdn.jsdelivr.net/npm/eruda";
-				if (
-					!/eruda=true/.test(window.location) &&
-					localStorage.getItem("active-eruda") !== "true"
-				) {
-					return;
-				}
-				document.write("<scr" + 'ipt src="' + src + '"></scr' + "ipt>");
-				document.write("<scr" + "ipt>eruda.init();</scr" + "ipt>");
-			})();
-		</script>
-		<!-- <script src="/cdn.js"></script> -->
+		<link href="/examples/main.css" rel="stylesheet" />
+		<script src="/examples/main.js" type="module"></script>
 	</head>
 
 	<body>
@@ -91,8 +27,6 @@
 					try {
 						const output = await window.CBE.enableWallet(this.wallets.selected);
 						this.details = JSON.stringify(output, null, 2);
-
-						console.log(this.wallets.selected, 'output', output);
 					} catch (error) {
 						this.details = error;
 					}
@@ -160,31 +94,15 @@
 							</td>
 						</tr>
 					</template>
+					<template x-if="!wallets.enabled.length">
+						<tr>
+							<td colspan="3">NOTHING!!!</td>
+						</tr>
+					</template>
 				</tbody>
 			</table>
-			<style>
-				th,
-				td {
-					padding: 0.5rem;
-					border: 1px solid;
-					text-align: center;
-				}
-			</style>
 
-			<h2>Select and Connect</h2>
-
-			<div>
-				<select x-model="wallets.selected">
-					<option value="" disabled>&mdash; Select &mdash;</option>
-					<template x-for="wallet in wallets.installed">
-						<option x-bind:value="wallet.id" x-text="wallet.name"></option>
-					</template>
-				</select>
-
-				<button x-on:click="handle()">Connect</button>
-
-				<code x-text="details"></code>
-			</div>
+			<p><a href="/examples/index.html">Check implementation examples</a></p>
 		</main>
 
 		<aside>
@@ -192,36 +110,5 @@
 
 			<ol id="cbE-events"></ol>
 		</aside>
-
-		<script>
-			const $list = document.querySelector("#cbE-events");
-
-			[
-				"added",
-				"removed",
-				"adopted",
-				"initialized",
-				"connecting",
-				"connected",
-				"error",
-			].forEach((type) => {
-				addEventListener(`CardanoWebComponents:${type}`, (event) => {
-					const template = document.createElement("template");
-
-					template.innerHTML = `<li><b>${event.type}</b><pre>${JSON.stringify(
-						event.detail,
-						null,
-						2,
-					)}</pre></li>`;
-
-					$list.appendChild(template.content.childNodes[0]);
-					console.info("[CBE]", event.type, event.detail);
-				});
-			});
-		</script>
-		<script
-			src="//cdn.jsdelivr.net/npm/alpinejs/dist/cdn.min.js"
-			defer
-		></script>
 	</body>
 </html>

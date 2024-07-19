@@ -1,0 +1,63 @@
+html {
+	container-type: inline-size;
+}
+
+@container (width > 768px) {
+	body {
+		display: grid;
+		gap: 1em;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: auto 1fr;
+		height: 100vh;
+	}
+
+	main,
+	aside {
+		overflow: auto;
+	}
+
+	header {
+		grid-column: 1 / span 2;
+		display: flex;
+		align-items: center;
+		gap: 1em;
+	}
+
+	h3 {
+		position: sticky;
+		top: 0;
+		background: #fff;
+		display: block;
+		margin: 0;
+		padding: 1em 0;
+	}
+}
+
+#cbE-events {
+	display: flex;
+	flex-direction: column-reverse;
+	font-size: 0.75rem;
+}
+
+th,
+td {
+	padding: 0.5rem;
+	border: 1px solid;
+	text-align: center;
+}
+
+label {
+	display: block;
+}
+
+code {
+	display: block;
+	word-break: break-word;
+	white-space: pre-wrap;
+}
+
+table,
+input[type="text"],
+input[type="number"] {
+	width: 100%;
+}

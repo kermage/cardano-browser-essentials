@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Examples - Cardano Browser Essentials</title>
+		<link href="//cdn.jsdelivr.net/npm/modern-normalize" rel="stylesheet" />
+		<link href="/examples/main.css" rel="stylesheet" />
+		<script src="/examples/main.js" type="module"></script>
+		<script src="/examples/transaction.js" type="module"></script>
+	</head>
+
+	<body
+		x-data="{
+			transaction: '',
+			selected: '',
+		}"
+	>
+		<header>
+			<h1>CBE - Examples</h1>
+		</header>
+
+		<main
+			x-data="{
+				wallets: [],
+
+				forceRefresh(delayed = false) {
+					this.wallets = [];
+					this.selected = '';
+					this.transaction = '';
+
+					setTimeout(() => {
+						this.wallets = window.CBE.getInstalledWallets();
+					}, (+delayed) * 250);
+				},
+
+				init() {
+					this.forceRefresh();
+				},
+			}"
+		>
+			<template x-teleport="header">
+				<button x-on:click="forceRefresh(true)">Refresh</button>
+			</template>
+
+			<ol>
+				<li>
+					<fieldset>
+						<legend>Select a wallet:</legend>
+
+						<template x-for="wallet in wallets">
+							<label>
+								<input
+									type="radio"
+									x-bind:value="wallet.id"
+									x-model="selected"
+								/>
+								<img x-bind:src="wallet.icon" alt="" height="12" />
+								<span x-text="wallet.name"></span>
+							</label>
+						</template>
+
+						<template x-if="!wallets.length">
+							<p>NOTHING!!!</p>
+						</template>
+					</fieldset>
+				</li>
+
+				<template x-if="selected">
+					<li>
+						<fieldset>
+							<legend>Select a transaction:</legend>
+
+							<label>
+								<input type="radio" value="payment" x-model="transaction" />
+								<span>Address Payment</span>
+							</label>
+
+							<label>
+								<input type="radio" value="delegation" x-model="transaction" />
+								<span>Pool Delegation</span>
+							</label>
+						</fieldset>
+					</li>
+				</template>
+			</ol>
+		</main>
+
+		<aside
+			x-data="{
+				project_id: '',
+				address: '',
+				amount: '',
+				pool_id: '',
+				status: '',
+				processing: false,
+
+				isReady() {
+					return this.project_id && ! this.processing && (
+						( this.transaction === 'delegation' && this.pool_id ) ||
+						( this.transaction === 'payment' && this.address && this.amount )
+					);
+				},
+
+				async doProcess() {
+					this.processing = true;
+					this.status = 'processing...';
+
+					try {
+						const { fullAPI, networkID } = await window.CBE.enableWallet(this.selected);
+						const parameters = await window.CBE_TX.getLatestParameters(networkID, this.project_id);
+						this.status = `Latest Parameters: ${JSON.stringify(parameters, null, 2)}`
+
+						if (!parameters?.error) {
+							const CMLModule = await window.CBE_TX.CML.load();
+							const txHandler = window.CBE.createHandler(fullAPI, CMLModule).configWith(parameters);
+
+							if (this.transaction === 'payment') {
+								txHandler.sendTo(this.address, this.amount);
+							} else if (this.transaction === 'delegation') {
+								txHandler.registerStake();
+								txHandler.delegateTo(this.pool_id);
+							}
+
+							this.status = await txHandler.execute();
+						}
+					} catch (error) {
+						this.status = error;
+					}
+
+					this.processing = false;
+				}
+			}"
+		>
+			<p>Complete the process: <em>(fill the form)</em></p>
+
+			<table>
+				<tr>
+					<td>
+						<span>Blockfrost Project ID</span>
+					</td>
+					<td>
+						<input type="text" x-model="project_id" />
+					</td>
+				</tr>
+
+				<template x-if="transaction === 'payment'">
+					<tr>
+						<td>
+							<span>Payee Address</span>
+						</td>
+						<td>
+							<input type="text" x-model="address" />
+						</td>
+					</tr>
+				</template>
+
+				<template x-if="transaction === 'payment'">
+					<tr>
+						<td>
+							<span>Lovelace Amount</span>
+						</td>
+						<td>
+							<input type="number" x-model="amount" />
+						</td>
+					</tr>
+				</template>
+
+				<template x-if="transaction === 'delegation'">
+					<tr>
+						<td>
+							<span>Bech32 Pool ID</span>
+						</td>
+						<td>
+							<input type="text" x-model="pool_id" />
+						</td>
+					</tr>
+				</template>
+			</table>
+
+			<p x-show="transaction">
+				<button
+					x-on:click="doProcess"
+					x-bind:disabled="!isReady()"
+					x-text="transaction === 'payment' ? 'Send payment' : 'Do delegate'"
+				></button>
+			</p>
+
+			<fieldset x-show="status">
+				<legend>Status:</legend>
+				<code x-text="status"></code>
+			</fieldset>
+		</aside>
+	</body>
+</html>

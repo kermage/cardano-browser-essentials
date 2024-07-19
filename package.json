@@ -48,7 +48,9 @@
     "prettier": "^3.3.2",
     "typescript": "^5.5.3",
     "vite": "^5.3.3",
-    "vite-plugin-dts": "^3.9.1"
+    "vite-plugin-dts": "^3.9.1",
+    "vite-plugin-top-level-await": "^1.4.1",
+    "vite-plugin-wasm": "^3.3.0"
   },
   "peerDependencies": {
     "@dcspark/cardano-multiplatform-lib-browser": "^5.3.1"

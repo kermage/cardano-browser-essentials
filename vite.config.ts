@@ -1,5 +1,7 @@
 import { defineConfig, type LibraryOptions } from "vite";
 import dts from "vite-plugin-dts";
+import topLevelAwait from "vite-plugin-top-level-await";
+import wasm from "vite-plugin-wasm";
 
 const forCDN = process.env.CDN ? true : false;
 const emptyOutDir = !forCDN && !process.env.COMMON;
@@ -23,7 +25,13 @@ const plugins = forCDN ? [] : [dts({ rollupTypes: true })];
 const config = process.env.STATIC
 	? {
 			base: process.env.BASE_URL || "/",
-			build: { emptyOutDir },
+			build: {
+				emptyOutDir,
+				rollupOptions: {
+					input: ["index.html", "examples/index.html"],
+				},
+			},
+			plugins: [wasm(), topLevelAwait()],
 		}
 	: {
 			build: {
