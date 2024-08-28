@@ -80,6 +80,11 @@
 								<input type="radio" value="delegation" x-model="transaction" />
 								<span>Pool Delegation</span>
 							</label>
+
+							<label>
+								<input type="radio" value="signing" x-model="transaction" />
+								<span>Data Signing</span>
+							</label>
 						</fieldset>
 					</li>
 				</template>
@@ -92,14 +97,35 @@
 				address: '',
 				amount: '',
 				pool_id: '',
+				message: '',
 				status: '',
 				processing: false,
 
 				isReady() {
-					return this.project_id && ! this.processing && (
-						( this.transaction === 'delegation' && this.pool_id ) ||
-						( this.transaction === 'payment' && this.address && this.amount )
+					return ! this.processing && (
+						( this.transaction === 'signing' && this.message ) ||
+						( this.project_id &&
+							( this.transaction === 'delegation' && this.pool_id ) ||
+							( this.transaction === 'payment' && this.address && this.amount )
+						)
 					);
+				},
+
+				async doSign() {
+					this.processing = true;
+					this.status = 'processing...';
+
+					try {
+						const { fullAPI } = await window.CBE.enableWallet(this.selected);
+						const address = await fullAPI.getChangeAddress();
+						const payload = window.CBE.String.encode(this.message);
+
+						this.status = JSON.stringify(await fullAPI.signData(address, payload), null, 2);
+					} catch (error) {
+						this.status = error;
+					}
+
+					this.processing = false;
 				},
 
 				async doProcess() {
@@ -135,14 +161,38 @@
 			<p>Complete the process: <em>(fill the form)</em></p>
 
 			<table>
-				<tr>
-					<td>
-						<span>Blockfrost Project ID</span>
-					</td>
-					<td>
-						<input type="text" x-model="project_id" />
-					</td>
-				</tr>
+				<template x-if="transaction === ''">
+					<tr>
+						<td>
+							<span>1. Select a wallet</span>
+						</td>
+						<td>
+							<span>2. Select a transaction</span>
+						</td>
+					</tr>
+				</template>
+
+				<template x-if="transaction === 'signing'">
+					<tr>
+						<td>
+							<span>Text Message</span>
+						</td>
+						<td>
+							<textarea x-model="message"></textarea>
+						</td>
+					</tr>
+				</template>
+
+				<template x-if="transaction && transaction !== 'signing'">
+					<tr>
+						<td>
+							<span>Blockfrost Project ID</span>
+						</td>
+						<td>
+							<input type="text" x-model="project_id" />
+						</td>
+					</tr>
+				</template>
 
 				<template x-if="transaction === 'payment'">
 					<tr>
@@ -180,9 +230,9 @@
 
 			<p x-show="transaction">
 				<button
-					x-on:click="doProcess"
+					x-on:click="transaction === 'signing' ? doSign() : doProcess"
 					x-bind:disabled="!isReady()"
-					x-text="transaction === 'payment' ? 'Send payment' : 'Do delegate'"
+					x-text="transaction === 'signing' ? 'Sign Message' : transaction === 'payment' ? 'Send payment' : 'Do delegate'"
 				></button>
 			</p>
 
