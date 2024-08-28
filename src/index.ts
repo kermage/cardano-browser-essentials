@@ -2,6 +2,7 @@ import { SLOT_OFFSET } from "./types/index";
 
 import type { FullAPI, NetworkName, WalletInfo } from "./types/index";
 
+export * from "./converters";
 export * from "./transaction";
 
 export function isCIP30(wallet: string): boolean {
