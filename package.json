@@ -1,7 +1,7 @@
 {
   "name": "cardano-browser-essentials",
   "title": "Cardano Browser Essentials",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Cardano Browser Essentials",
   "keywords": [
     "cardano",
@@ -43,13 +43,13 @@
   },
   "devDependencies": {
     "@dcspark/cardano-multiplatform-lib-browser": "^5.3.1",
-    "@types/node": "^20.14.10",
+    "@types/node": "^22.5.1",
     "@webreflection/custom-elements-builtin": "^0.4.1",
-    "prettier": "^3.3.2",
-    "typescript": "^5.5.3",
-    "vite": "^5.3.3",
-    "vite-plugin-dts": "^3.9.1",
-    "vite-plugin-top-level-await": "^1.4.1",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2",
+    "vite-plugin-dts": "^4.0.3",
+    "vite-plugin-top-level-await": "^1.4.4",
     "vite-plugin-wasm": "^3.3.0"
   },
   "peerDependencies": {
