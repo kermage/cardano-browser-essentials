@@ -130,6 +130,7 @@ export function createHandler(usingWallet: FullAPI, usingCML: CMLModule) {
 						CML.LinearFee.new(
 							BigInt(protocolParameters.min_fee_a),
 							BigInt(protocolParameters.min_fee_b),
+							BigInt(protocolParameters.min_fee_ref_script_cost_per_byte || 0),
 						),
 					)
 					.max_tx_size(protocolParameters.max_tx_size)

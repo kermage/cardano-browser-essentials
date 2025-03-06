@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@dcspark/cardano-multiplatform-lib-browser':
-        specifier: ^5.3.1
-        version: 5.3.1
+        specifier: ^6.1.0
+        version: 6.1.0
       '@types/node':
         specifier: ^22.13.9
         version: 22.13.9
@@ -55,8 +55,8 @@ packages:
     resolution: {integrity: sha512-Y3IR1cRnOxOCDvMmNiym7XpXQ93iGDDPHx+Zj+NM+rg0fBaShfQLkg+hKPaZCEvg5N/LeCo4+Rj/i3FuJsIQaw==}
     engines: {node: '>=6.9.0'}
 
-  '@dcspark/cardano-multiplatform-lib-browser@5.3.1':
-    resolution: {integrity: sha512-iPLYATq7nCy26kAVBUKa4mOxFuTinDv4pFdZXYnkjN6+MFNjumM0/tKvb2eCxNrPFxSFZvgSlLEDL0Rq0HBaVg==}
+  '@dcspark/cardano-multiplatform-lib-browser@6.1.0':
+    resolution: {integrity: sha512-Fw48vVw8IgrgdJBYPfNip9cdrINhGfU92ueuTZEtfzP2E6XNJoa/fDEzZ1bgCmBD6Qk4A7PN285RIpCNf4qefg==}
 
   '@esbuild/aix-ppc64@0.21.5':
     resolution: {integrity: sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==}
@@ -823,7 +823,7 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@dcspark/cardano-multiplatform-lib-browser@5.3.1': {}
+  '@dcspark/cardano-multiplatform-lib-browser@6.1.0': {}
 
   '@esbuild/aix-ppc64@0.21.5':
     optional: true

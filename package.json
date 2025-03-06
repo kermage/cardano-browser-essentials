@@ -42,7 +42,7 @@
     }
   },
   "devDependencies": {
-    "@dcspark/cardano-multiplatform-lib-browser": "^5.3.1",
+    "@dcspark/cardano-multiplatform-lib-browser": "^6.1.0",
     "@types/node": "^22.13.9",
     "@webreflection/custom-elements-builtin": "^0.4.1",
     "prettier": "^3.5.3",
@@ -53,7 +53,7 @@
     "vite-plugin-wasm": "^3.4.1"
   },
   "peerDependencies": {
-    "@dcspark/cardano-multiplatform-lib-browser": "^5.3.1"
+    "@dcspark/cardano-multiplatform-lib-browser": "^6.1.0"
   },
   "scripts": {
     "dev": "vite",

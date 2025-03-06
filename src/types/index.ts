@@ -34,6 +34,7 @@ export interface ProtocolParameters {
 	collateral_percent: number | null;
 	max_collateral_inputs: number | null;
 	coins_per_utxo_size: string | null;
+	min_fee_ref_script_cost_per_byte: number | null;
 }
 
 export type NetworkName = "mainnet" | "preprod" | "preview";
