@@ -1,4 +1,4 @@
-import { defineConfig, type LibraryOptions } from "vite";
+import { defineConfig, type LibraryOptions, type UserConfig } from "vite";
 import dts from "vite-plugin-dts";
 import topLevelAwait from "vite-plugin-top-level-await";
 import wasm from "vite-plugin-wasm";
@@ -22,7 +22,7 @@ const lib: LibraryOptions = {
 	},
 };
 const plugins = forCDN ? [] : [dts({ rollupTypes: true })];
-const config = process.env.STATIC
+const config: UserConfig = process.env.STATIC
 	? {
 			base: process.env.BASE_URL || "/",
 			build: {
@@ -38,6 +38,11 @@ const config = process.env.STATIC
 				lib,
 				emptyOutDir,
 				minify,
+				rollupOptions: {
+					output: {
+						exports: "named"
+					}
+				}
 			},
 			plugins,
 		};
