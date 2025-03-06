@@ -1,14 +1,14 @@
-type cbor<_T> = string;
-type Bytes = string;
-type hash32 = string;
-type Address = cbor<"Address">;
+export type cbor<_T> = string;
+export type Bytes = string;
+export type hash32 = string;
+export type Address = cbor<"Address">;
 
-interface Paginate {
+export interface Paginate {
 	page: number;
 	limit: number;
 }
 
-interface DataSignature {
+export interface DataSignature {
 	signature: cbor<"COSE_Sign1">;
 	key: cbor<"COSE_Key">;
 }
@@ -43,7 +43,7 @@ export interface InitialAPI {
 	icon: string;
 }
 
-type namespace = string;
+export type namespace = string;
 
 export interface InjectedCardano {
 	cardano: Record<namespace, InitialAPI>;
